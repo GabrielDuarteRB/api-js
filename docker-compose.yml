@@ -1,0 +1,48 @@
+
+services:
+  app:
+    build: .
+    container_name: app-sequelize-js
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    networks:
+      - api-js
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: app-sequelize-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - api-js-volumes:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - api-js
+
+  pgadmin:
+    image: dpage/pgadmin4:9.8
+    container_name: app-sequelize-pgadmin
+    ports:
+      - 1000:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: demo@example.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+    depends_on:
+      - db
+    networks:
+      - api-js
+
+volumes:
+  api-js-volumes:
+
+networks:
+  api-js:
+    driver: bridge

@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "knex": "^3.1.0",
+    "pg": "^8.20.0",
+    "sequelize": "^6.37.8"
+  },
+  "name": "testando-knex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --testPathIgnorePatterns=postgres.integration.test.js",
+    "test:integration": "TEST_DB_NAME=app-js-database-test TEST_DB_HOST=127.0.0.1 TEST_DB_PORT=5434 node ./scripts/prepare-test-db.js && NODE_ENV=test TEST_DB_NAME=app-js-database-test TEST_DB_HOST=127.0.0.1 TEST_DB_PORT=5434 node --experimental-vm-modules ./node_modules/jest/bin/jest.js usuarios/postgres.integration.test.js",
+    "dev": "node --watch index.js -p ",
+    "start": "node index.js",
+    "build": "node --check index.js",
+    "db:migration": "node migration.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "jest": "^30.5.1"
+  }
+}

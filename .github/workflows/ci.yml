@@ -1,0 +1,95 @@
+name: build
+
+on:
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout no repositorio
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-project.yml
+
+      - name: Build da aplicação
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout no repositorio
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-project.yml
+
+      - name: Testes da aplicação
+        run: npm run test
+
+  test-integracao:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout no repositorio
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-project.yml
+
+      - name: Teste de integração
+        run: npm run test:integration
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout no repositorio
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-project.yml
+
+      - name: Teste do Lint
+        run: npm run lint
+
+  sonarqube:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout no repositorio
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Rodando SonarQube
+        uses: SonarSource/sonarqube-scan-action@v8
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_TOKEN }}
+
+  sast:
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+      - name: Checkout no repositorio
+        uses: actions/checkout@v6
+
+      - name: Inicializando o CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+
+      - name: Analisar
+        uses: github/codeql-action/analyze@v4
+

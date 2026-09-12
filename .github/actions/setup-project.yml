@@ -1,0 +1,17 @@
+name: 'Setup do projeto'
+description: 'Prepara o setup do projeto para ele rodar'
+
+runs:
+  using: composite
+
+  steps:
+    - name: "Checkout do projeto"
+      uses: actions/checkout@v6
+
+    - name: "Setup do node"
+      uses: actions/setup-node@v7
+      with:
+        node-version: 24
+
+    - name: "Install das dependencias"
+      run: npm ci
