@@ -1,0 +1,38 @@
+name: container
+
+on:
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+
+  docker-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Validar Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+
+  trivy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build image
+        run: docker build -t api-ts:latest .
+
+      - name: Scan de vulnerabilidade
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: api-js:latest
+          format: table
