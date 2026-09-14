@@ -75,7 +75,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           args: >
-            -Dsonar.organization=gabriel-duarte
+            -Dsonar.organization=gabrielduarterb
             -Dsonar.projectKey=GabrielDuarteRB_api-js
             -Dsonar.qualitygate.wait=true
 
