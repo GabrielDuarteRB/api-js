@@ -11,7 +11,7 @@ app.use('/', router);
 try {
     await db.authenticate();
     console.log("Eba!");
-} catch (error) {
+} catch {
     console.log("Não eba...");
 }
 

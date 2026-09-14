@@ -35,7 +35,7 @@ export async function listarInteressesUsuario(req, res) {
 }
 
 export async function criarInteresseUsuario(req, res) {
-    const interesse = await service.criarInteresseUsuario(req.params.idUsuario, req.params.idInteresse);
+    await service.criarInteresseUsuario(req.params.idUsuario, req.params.idInteresse);
     return res.status(201).send("Interesse inserido com sucesso!");
 }
 

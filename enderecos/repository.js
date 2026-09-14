@@ -1,5 +1,4 @@
 import { Endereco } from '../modelIndex.js';
-import Op from 'sequelize';
 
 export async function listar() {
     return await Endereco.findAll();
