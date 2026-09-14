@@ -1,6 +1,4 @@
-import { Usuario } from '../modelIndex.js';
-import { Interesse } from '../modelIndex.js';
-import Op from 'sequelize';
+import { Usuario, Interesse } from '../modelIndex.js';
 
 export async function listar() {
     return await Usuario.findAll({

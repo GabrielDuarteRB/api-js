@@ -1,5 +1,4 @@
 import { Mensagem } from '../modelIndex.js';
-import Op from 'sequelize';
 
 export async function listar() {
     return await Mensagem.findAll();
