@@ -44,8 +44,16 @@ jobs:
 
       - uses: ./.github/actions/setup-project
 
+      - name: Subir banco de dados
+        run: docker compose up -d db
+
+      - name: Aguardar banco de dados
+        run: until docker compose exec -T db pg_isready -U app-js; do sleep 1; done
+
       - name: Teste de integração
         run: npm run test:integration
+        env:
+          DB_HOST: 127.0.0.1
 
   lint:
     runs-on: ubuntu-latest
