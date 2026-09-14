@@ -18,7 +18,7 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
 
       - name: Build da aplicação
         run: npm run build
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
 
       - name: Testes da aplicação
         run: npm run test
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
 
       - name: Teste de integração
         run: npm run test:integration
@@ -54,7 +54,7 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
 
       - name: Teste do Lint
         run: npm run lint
