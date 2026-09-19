@@ -46,21 +46,21 @@ Você deverá modificar a aplicação para fazer acesso ao banco de dados. Crie 
 Crie um CI/CD no github actions com as seguintes etapas
 
 - CI (Integração Contínua)
-  - Build da aplicação
-  - Testes unitários
-  - Testes de integração
-  - Lint
-  - Análise de qualidade de código (SonarQube)
-  - SAST (Semgrep ou Checkmarx ou Fortify, etc)
+  - [x] Build da aplicação
+  - [x] Testes unitários
+  - [x] Testes de integração
+  - [x] Lint
+  - [x] Análise de qualidade de código (SonarQube)
+  - [x] SAST (Semgrep ou Checkmarx ou Fortify, etc)
 
 - Container
-  - Docker Lint
-  - Build da imagem
-  - Scan de vulnerabilidades (Trivy)
-  - Push da imagem no dockerhub
+  - [x] Docker Lint
+  - [x] Build da imagem
+  - [x] Scan de vulnerabilidades (Trivy)
+  - [x] Push da imagem no dockerhub
 
 - CD (Entrega Contínua)
-   - Deploy em homologação com Render
-   - DAST (OWASP ZAP)
-   - Criação da aprovação manual
-   - Deploy em produção
+  - [] Deploy em homologação com Render
+  - [] DAST (OWASP ZAP)
+  - [] Criação da aprovação manual
+  - [] Deploy em produção
