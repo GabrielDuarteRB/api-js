@@ -11,7 +11,28 @@
   jobs:
 
     render-homolog:
+      if: github.event.workflow_run.conclusion == 'success'
       runs-on: ubuntu-latest
       steps:
         - name: Novo deploy Homologacao
           run: curl --fail --silent --show-error --request POST "${{ secrets.RENDER_HOMOLOG_DEPLOY_HOOK_URL }}"
+
+    zap:
+      runs-on: ubuntu-latest
+      needs: render-homolog
+
+      steps:
+
+        - name: Aguardar deploy
+          run: >
+            curl --retry 30 --retry-delay 10 --retry-connrefused
+            --fail --silent --show-error
+            "https://api-js-kufg.onrender.com/"
+
+        - name: Dast
+          uses: zaproxy/action-baseline@v0.15.0
+          with:
+            target: "https://api-js-kufg.onrender.com/"
+            fail_action: true
+            allow_issue_writing: false
+            artifact_name: zap-homolog-report
