@@ -1,0 +1,20 @@
+name: cd-homolog
+
+on:
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+
+  render-homolog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Novo deploy Homologacao
+        env:
+        run: curl --fail --silent --show-error --request POST "${{ secrets.RENDER_HOMOLOG_DEPLOY_HOOK_URL }}"
