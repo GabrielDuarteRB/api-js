@@ -39,3 +39,28 @@ jobs:
         with:
           image-ref: api-js:latest
           format: table
+
+  docker-hub:
+    runs-on: ubuntu-latest
+
+    name: Enviar para o docker hub
+    needs: [docker-list, trivy]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Entrar no docker hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/api-js:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/api-js:${{ github.sha }}
