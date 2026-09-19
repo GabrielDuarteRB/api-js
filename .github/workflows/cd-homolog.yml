@@ -1,20 +1,19 @@
-name: cd-homolog
+  name: cd-homolog
 
-on:
-  push:
-    branches:
-      - develop
+  on:
+    workflow_run:
+      workflows: ["container"]
+      types:
+        - completed
+      branches:
+        - develop
 
-  pull_request:
-    branches:
-      - develop
+  jobs:
 
-jobs:
+    render-homolog:
+      runs-on: ubuntu-latest
+      needs: docker-hub
 
-  render-homolog:
-    runs-on: ubuntu-latest
-    needs: docker-hub
-
-    steps:
-      - name: Novo deploy Homologacao
-        run: curl --fail --silent --show-error --request POST "${{ secrets.RENDER_HOMOLOG_DEPLOY_HOOK_URL }}"
+      steps:
+        - name: Novo deploy Homologacao
+          run: curl --fail --silent --show-error --request POST "${{ secrets.RENDER_HOMOLOG_DEPLOY_HOOK_URL }}"
