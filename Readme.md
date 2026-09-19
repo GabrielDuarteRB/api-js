@@ -61,6 +61,6 @@ Crie um CI/CD no github actions com as seguintes etapas
 
 - CD (Entrega Contínua)
   - [x] Deploy em homologação com Render
-  - [] DAST (OWASP ZAP)
-  - [] Criação da aprovação manual
-  - [] Deploy em produção
+  - [x] DAST (OWASP ZAP)
+  - [x] Criação da aprovação manual
+  - [x] Deploy em produção
