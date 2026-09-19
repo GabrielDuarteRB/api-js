@@ -1,0 +1,39 @@
+name: cd-password
+
+on:
+  push:
+    branches: master
+
+jobs:
+
+  docker-push-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Entrar no docker hub
+        uses: docker/login-actions@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/api-js:production
+            ${{ secrets.DOCKERHUB_USERNAME }}/api-js:production
+
+  docker-deploy:
+    runs-on: ubuntu-latest
+    needs: docker-push-prod
+    envidorment: production
+
+    steps:
+      - name: Disparar deploy
+        run: curl --fail --silent --show-error --request POST "${{ secrets.RENDER_HOMOLOG_DEPLOY_HOOK_URL }}"
+
