@@ -12,8 +12,6 @@
 
     render-homolog:
       runs-on: ubuntu-latest
-      needs: docker-hub
-
       steps:
         - name: Novo deploy Homologacao
           run: curl --fail --silent --show-error --request POST "${{ secrets.RENDER_HOMOLOG_DEPLOY_HOOK_URL }}"
