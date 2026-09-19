@@ -60,7 +60,7 @@ Crie um CI/CD no github actions com as seguintes etapas
   - [x] Push da imagem no dockerhub
 
 - CD (Entrega Contínua)
-  - [] Deploy em homologação com Render
+  - [x] Deploy em homologação com Render
   - [] DAST (OWASP ZAP)
   - [] Criação da aprovação manual
   - [] Deploy em produção
