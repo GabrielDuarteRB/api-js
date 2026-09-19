@@ -31,7 +31,7 @@ jobs:
   docker-deploy:
     runs-on: ubuntu-latest
     needs: docker-push-prod
-    enviroment: production
+    environment: production
 
     steps:
       - name: Disparar deploy
