@@ -18,7 +18,7 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
 
       - name: Build da aplicação
         run: npm run build
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
 
       - name: Testes da aplicação
         run: npm run test
@@ -42,10 +42,18 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
+
+      - name: Subir banco de dados
+        run: docker compose up -d db
+
+      - name: Aguardar banco de dados
+        run: until docker compose exec -T db pg_isready -U app-js; do sleep 1; done
 
       - name: Teste de integração
         run: npm run test:integration
+        env:
+          DB_HOST: 127.0.0.1
 
   lint:
     runs-on: ubuntu-latest
@@ -54,7 +62,7 @@ jobs:
       - name: Checkout no repositorio
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-project.yml
+      - uses: ./.github/actions/setup-project
 
       - name: Teste do Lint
         run: npm run lint
@@ -72,7 +80,12 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v8
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.organization=gabrielduarterb
+            -Dsonar.projectKey=GabrielDuarteRB_api-js
+            -Dsonar.qualitygate.wait=true
 
   sast:
     runs-on: ubuntu-latest

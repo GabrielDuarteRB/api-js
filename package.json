@@ -13,6 +13,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --testPathIgnorePatterns=postgres.integration.test.js",
     "test:integration": "TEST_DB_NAME=app-js-database-test TEST_DB_HOST=127.0.0.1 TEST_DB_PORT=5434 node ./scripts/prepare-test-db.js && NODE_ENV=test TEST_DB_NAME=app-js-database-test TEST_DB_HOST=127.0.0.1 TEST_DB_PORT=5434 node --experimental-vm-modules ./node_modules/jest/bin/jest.js usuarios/postgres.integration.test.js",
+    "lint": "eslint .",
     "dev": "node --watch index.js -p ",
     "start": "node index.js",
     "build": "node --check index.js",
@@ -23,6 +24,9 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
     "jest": "^30.5.1"
   }
 }
