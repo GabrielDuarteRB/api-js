@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
 
     name: Enviar para o docker hub
-    needs: [docker-list, trivy]
+    needs: [docker-lint, trivy]
 
     steps:
       - name: Checkout
