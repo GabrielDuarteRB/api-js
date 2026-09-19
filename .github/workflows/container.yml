@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout porjeto
         uses: actions/checkout@v6
 
       - name: Build image
